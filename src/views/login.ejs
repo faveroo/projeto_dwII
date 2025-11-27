@@ -3,51 +3,48 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f3f3f3;
-        }
-
-        .login-box {
-            padding: 30px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 15px;
-            background: #007bff;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Sistema Premium</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <div class="login-box">
-        <h2>Entrar</h2>
-        <form action="/auth/login" method="POST">
-            <input type="email" name="email" placeholder="Email" required />
-            <input type="password" name="password" placeholder="Senha" required />
-            <button type="submit">Entrar</button>
-        </form>
+    <div class="center-screen">
+        <div class="card" style="width: 100%; max-width: 400px;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1>Bem-vindo</h1>
+                <p>Faça login para continuar</p>
+            </div>
+
+            <% if (error && error.length> 0) { %>
+                <div
+                    style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <% if (success && success.length> 0) { %>
+                        <div
+                            style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                            <%= success %>
+                        </div>
+                        <% } %>
+
+                            <form action="/auth/login" method="POST">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Senha</label>
+                                    <input type="password" id="password" name="password" placeholder="Sua senha"
+                                        required />
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Entrar no Sistema</button>
+                            </form>
+        </div>
     </div>
 </body>
 

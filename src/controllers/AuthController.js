@@ -19,12 +19,19 @@ class AuthController {
                 }
 
                 req.session.userId = user.id
+                req.session.userRole = user.role
+                req.session.userName = user.name
                 return res.redirect('/shop')
             })
             .catch(error => {
                 console.error(error)
                 return res.render('login', { error: 'Erro ao fazer login' })
             })
+    }
+
+    static async logout(req, res) {
+        req.session.destroy()
+        return res.redirect('/')
     }
 }
 
