@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+
+    <div class="table-container">
+
+        <% if (error && error.length> 0) { %>
+            <div class="badge-error">
+                <%= error %>
+            </div>
+            <% } %>
+
+                <% if (success && success.length> 0) { %>
+                    <div class="badge-success">
+                        <%= success %>
+                    </div>
+                    <% } %>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% categories.forEach(category=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= category.id %>
+                                        </td>
+                                        <td>
+                                            <%= category.name %>
+                                        </td>
+                                        <td>
+                                            <%= category.description %>
+                                        </td>
+                                        <td>
+                                            <a href="/category/edit-category/<%= category.id %>" class="action-btn">
+                                                ✏️ Editar
+                                            </a>
+
+                                            <a href="/category/delete-category/<%= category.id %>" class="action-btn"
+                                                style="color:#f87171;">
+                                                🗑️ Deletar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+
+    </div>

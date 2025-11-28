@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 const authRoutes = require('./routes/auth.routes');
 const shopRoutes = require('./routes/shop.routes');
+const productRoutes = require('./routes/product.routes');
 const categoryRoutes = require('./routes/category.routes');
 
 
@@ -42,6 +43,7 @@ const requireAuth = require('./middlewares/requireAuth');
 
 app.use('/', authRoutes);
 app.use('/shop', requireAuth, shopRoutes);
+app.use('/product', requireAuth, productRoutes);
 app.use('/category', requireAuth, categoryRoutes);
 
 module.exports = app;

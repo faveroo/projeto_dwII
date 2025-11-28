@@ -30,18 +30,86 @@ body {
 
 /* Layout Utilities */
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 4rem 2rem;
     width: 100%;
 }
 
+.layout-wrapper {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
 .center-screen {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 1rem;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.sidebar-section {
+    margin-bottom: 2rem;
+}
+
+.sidebar-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    padding: 0 0.75rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    text-decoration: none;
+}
+
+.sidebar-link svg {
+    flex-shrink: 0;
+}
+
+.sidebar-link.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
 }
 
 /* Typography */
@@ -52,6 +120,12 @@ h3 {
     font-weight: 600;
     letter-spacing: -0.03em;
     margin-bottom: 0.5rem;
+}
+
+h1 a {
+    color: var(--text-primary);
+    text-decoration: none;
+    border-color: none;
 }
 
 h1 {
@@ -84,7 +158,7 @@ a:hover {
     text-decoration-color: var(--text-primary);
 }
 
-/* Cards (Minimalist: No shadow, just border or subtle bg) */
+/* Cards */
 .card {
     background: transparent;
     border: 1px solid var(--border-color);
@@ -107,7 +181,9 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="number"],
+select {
     width: 100%;
     padding: 0.75rem 0;
     background: transparent;
@@ -119,7 +195,8 @@ input[type="password"] {
     transition: border-color 0.2s;
 }
 
-input:focus {
+input:focus,
+select:focus {
     outline: none;
     border-bottom-color: var(--accent-color);
 }
@@ -210,202 +287,7 @@ input:focus {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 4rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.welcome-text {
     margin-bottom: 0;
-    color: var(--text-secondary);
-}
-
-.welcome-text strong {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.logout-link {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-}
-
-.center-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 1rem;
-}
-
-/* Typography */
-h1,
-h2,
-h3 {
-    color: var(--text-primary);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.5rem;
-}
-
-h1 {
-    font-size: 2rem;
-}
-
-h2 {
-    font-size: 1.5rem;
-}
-
-h3 {
-    font-size: 1.1rem;
-}
-
-p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-}
-
-a {
-    color: var(--text-primary);
-    text-decoration: underline;
-    text-decoration-color: var(--border-color);
-    text-underline-offset: 4px;
-    transition: all 0.2s;
-}
-
-a:hover {
-    text-decoration-color: var(--text-primary);
-}
-
-/* Cards (Minimalist: No shadow, just border or subtle bg) */
-.card {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 2.5rem;
-    width: 100%;
-}
-
-/* Forms */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 0.75rem 0;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-primary);
-    font-size: 1rem;
-    border-radius: 0;
-    transition: border-color 0.2s;
-}
-
-input:focus {
-    outline: none;
-    border-bottom-color: var(--accent-color);
-}
-
-/* Buttons */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid transparent;
-    width: 100%;
-    text-decoration: none;
-}
-
-.btn-primary {
-    background: var(--accent-color);
-    color: var(--bg-color);
-}
-
-.btn-primary:hover {
-    background: var(--accent-hover);
-}
-
-.btn-secondary {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-}
-
-.btn-secondary:hover {
-    border-color: var(--text-primary);
-}
-
-/* Grid for Shop Actions */
-.actions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
-}
-
-.action-card {
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.5rem;
-    transition: border-color 0.2s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.action-card:hover {
-    border-color: var(--text-secondary);
-}
-
-.action-card h3 {
-    margin-bottom: 0.5rem;
-}
-
-.action-card p {
-    font-size: 0.85rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Badges */
-.role-badge {
-    display: inline-block;
-    padding: 0.1rem 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-left: 0.5rem;
-    vertical-align: middle;
-    color: var(--text-secondary);
-}
-
-/* Header */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 4rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-color);
 }
@@ -433,30 +315,86 @@ input:focus {
     color: var(--danger-color);
 }
 
-/* Navigation */
-.main-nav {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
+/* Action Bar */
+.action-bar {
     display: flex;
-    gap: 1.5rem;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
     flex-wrap: wrap;
 }
 
-.nav-link {
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    transition: color 0.2s;
+    transition: all 0.2s;
 }
 
-.nav-link:hover {
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-primary);
     color: var(--text-primary);
     text-decoration: none;
 }
 
-.nav-link.active {
-    color: var(--text-primary);
-    border-bottom: 1px solid var(--accent-color);
+.action-btn svg {
+    flex-shrink: 0;
+}
+
+.action-btn-primary {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+}
+
+.action-btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: var(--bg-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .layout-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .container {
+        padding: 2rem 1rem;
+    }
+
+    .action-bar {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }

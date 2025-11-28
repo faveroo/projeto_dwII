@@ -19,6 +19,18 @@ class CategoryController {
                 return res.redirect('/category/create-category')
             })
     }
+
+    static async listCategories(req, res) {
+        Category.findAll()
+            .then(categories => {
+                return res.render('shop/list-categories', { categories })
+            })
+            .catch(error => {
+                console.error(error)
+                req.flash('error', 'Erro ao listar categorias')
+                return res.redirect('/category/create-category')
+            })
+    }
 }
 
 module.exports = CategoryController
