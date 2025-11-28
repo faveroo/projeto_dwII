@@ -28,8 +28,8 @@ class ProductController {
     static async storeProduct(req, res) {
         try {
             const { name, description, price, stock, category_id } = req.body
-
-            Product.create({ name, description, price, stock, category_id })
+            const p = price.replace(',', '.')
+            Product.create({ name, description, price: p, stock, category_id })
                 .then(() => {
                     req.flash('success', 'Produto criado com sucesso')
                     return res.redirect('/shop')
