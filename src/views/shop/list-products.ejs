@@ -28,54 +28,65 @@
                     </div>
                     <% } %>
 
-                        <div class="row g-4">
+                        <div class="row g-3">
                             <% products.forEach(product=> { %>
-                                <div class="card bg-dark border-secondary h-100 hover-card shadow-sm">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-start">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                    <div class="card bg-dark border-secondary h-100 hover-card shadow-sm">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-start mb-3">
 
-                                            <!-- Ícone do produto -->
-                                            <div class="icon-container bg-success bg-opacity-25 text-success rounded-circle d-flex justify-content-center align-items-center"
-                                                style="width: 55px; height: 55px;">
-                                                <i class="bi bi-grid-3x3-gap fs-3"></i>
+                                                <!-- Ícone do produto -->
+                                                <div class="icon-container bg-success bg-opacity-25 text-success rounded-circle d-flex justify-content-center align-items-center flex-shrink-0"
+                                                    style="width: 45px; height: 45px;">
+                                                    <i class="bi bi-box-seam fs-4"></i>
+                                                </div>
+
+                                                <!-- Conteúdo -->
+                                                <div class="flex-grow-1 ms-3 overflow-hidden">
+
+                                                    <!-- Nome do produto -->
+                                                    <h5 class="text-white mb-1 fw-bold text-truncate"
+                                                        title="<%= product.name %>">
+                                                        <%= product.name %>
+                                                    </h5>
+
+                                                    <!-- Preço -->
+                                                    <p class="text-info fw-semibold mb-0">
+                                                        <i class="bi bi-cash me-1"></i>R$ <%= product.price %>
+                                                    </p>
+                                                </div>
                                             </div>
 
-                                            <!-- Conteúdo -->
-                                            <div class="flex-grow-1 ms-3">
+                                            <!-- Descrição -->
+                                            <p class="text-secondary small mb-3 text-truncate-2"
+                                                style="min-height: 2.5em;">
+                                                <%= product.description %>
+                                            </p>
 
-                                                <!-- Nome do produto -->
-                                                <h5 class="text-white mb-1 fw-bold">
-                                                    <%= product.name %>
-                                                </h5>
-
-                                                <!-- Descrição -->
-                                                <p class="text-secondary small mb-2">
-                                                    <%= product.description %>
-                                                </p>
-
-                                                <!-- Categoria -->
+                                            <!-- Meta info (Categoria e Estoque) -->
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
                                                 <% categories.forEach(category=> { %>
                                                     <% if (category.id===product.category_id) { %>
-                                                        <span class="badge bg-primary bg-opacity-50 text-light mb-2">
-                                                            <i class="bi bi-tag"></i>
+                                                        <span
+                                                            class="badge bg-primary bg-opacity-25 text-primary border border-primary border-opacity-25">
+                                                            <i class="bi bi-tag me-1"></i>
                                                             <%= category.name %>
                                                         </span>
                                                         <% } %>
                                                             <% }) %>
-
-                                                                <!-- Preço -->
-                                                                <p class="text-info fw-semibold mb-1">
-                                                                    <i class="bi bi-cash"></i> R$ <%= product.price %>
-                                                                </p>
-
-                                                                <!-- Estoque -->
-                                                                <p class="text-secondary small mb-0">
-                                                                    <i class="bi bi-box-seam"></i> Estoque: <strong>
+                                                                <small class="text-secondary">
+                                                                    Estoque: <strong>
                                                                         <%= product.stock %>
                                                                     </strong>
-                                                                </p>
-
+                                                                </small>
                                             </div>
+
+                                            <!-- Botão Adicionar ao Carrinho -->
+                                            <button
+                                                class="btn btn-success w-100 btn-sm d-flex align-items-center justify-content-center gap-2">
+                                                <i class="bi bi-cart-plus"></i>
+                                                Adicionar ao carrinho
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,7 @@
 <%- include('partials/header') %>
 
-    <div class="table-container">
+    <div class="container-fluid py-4">
+        <h2 class="h3 mb-4 text-white">Categorias</h2>
 
         <% if (error && error.length> 0) { %>
             <div class="badge-error">
@@ -14,33 +15,37 @@
                     </div>
                     <% } %>
 
-                        <% categories.forEach(category=> { %>
-                            <div class="card bg-dark border-secondary h-100 hover-card shadow-sm">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-start">
+                        <div class="row g-3">
+                            <% categories.forEach(category=> { %>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                    <div class="card bg-dark border-secondary h-100 hover-card shadow-sm">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-center">
 
-                                        <!-- Ícone do produto -->
-                                        <div class="icon-container bg-success bg-opacity-25 text-success rounded-circle d-flex justify-content-center align-items-center"
-                                            style="width: 55px; height: 55px;">
-                                            <i class="bi bi-grid-3x3-gap fs-3"></i>
-                                        </div>
+                                                <!-- Ícone do produto -->
+                                                <div class="icon-container bg-success bg-opacity-25 text-success rounded-circle d-flex justify-content-center align-items-center flex-shrink-0"
+                                                    style="width: 45px; height: 45px;">
+                                                    <i class="bi bi-grid-3x3-gap fs-4"></i>
+                                                </div>
 
-                                        <!-- Conteúdo -->
-                                        <div class="flex-grow-1 ms-3">
+                                                <!-- Conteúdo -->
+                                                <div class="flex-grow-1 ms-3 overflow-hidden">
 
-                                            <!-- Nome do produto -->
-                                            <h5 class="text-white mb-1 fw-bold">
-                                                <%= category.name %>
-                                            </h5>
+                                                    <!-- Nome do produto -->
+                                                    <h5 class="text-white mb-1 fw-bold text-truncate">
+                                                        <%= category.name %>
+                                                    </h5>
 
-                                            <!-- Descrição -->
-                                            <p class="text-secondary small mb-2">
-                                                <%= category.description %>
-                                            </p>
+                                                    <!-- Descrição -->
+                                                    <p class="text-secondary small mb-0 text-truncate">
+                                                        <%= category.description %>
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <% }) %>
+                                <% }) %>
+                        </div>
 
     </div>
