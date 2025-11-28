@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
                 <div class="form-card">
-                    <h1>Criar Categoria</h1>
+                    <h1>Criar Cupom</h1>
 
                     <% if (error && error.length> 0) { %>
                         <div class="badge-error">
@@ -20,22 +20,32 @@
                                 </div>
                                 <% } %>
 
-                                    <form action="/category/store-category" method="POST">
+                                    <form action="/product/store-product" method="POST">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Nome</label>
                                             <input type="text" id="name" name="name" required class="form-control"
-                                                placeholder="Ex: Eletrônicos">
+                                                placeholder="Ex: PROMO10">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Descrição</label>
+                                            <input type="text" id="description" name="description" required
+                                                class="form-control" placeholder="Descrição do cupom">
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="description" class="form-label">Descrição</label>
-                                            <input type="text" id="description" name="description" required
-                                                class="form-control" placeholder="Descrição da categoria">
+                                            <label for="percent" class="form-label">Porcentagem de Desconto</label>
+                                            <div class="input-group">
+                                                <input type="number" id="percent" name="percent" required
+                                                    class="form-control" placeholder="Ex: 10">
+                                                <span
+                                                    class="input-group-text bg-dark text-light border-secondary">%</span>
+                                            </div>
                                         </div>
 
                                         <div class="d-grid">
                                             <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-plus-circle me-2"></i>Criar Categoria
+                                                <i class="fas fa-plus-circle me-2"></i>Criar Cupom
                                             </button>
                                         </div>
                                     </form>

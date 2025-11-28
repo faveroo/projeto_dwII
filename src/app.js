@@ -37,6 +37,7 @@ const authRoutes = require('./routes/auth.routes');
 const shopRoutes = require('./routes/shop.routes');
 const productRoutes = require('./routes/product.routes');
 const categoryRoutes = require('./routes/category.routes');
+const couponRoutes = require('./routes/coupon.routes');
 
 
 const authMiddleware = require('./middlewares/authMiddleware');
@@ -49,5 +50,6 @@ app.use('/', authRoutes);
 app.use('/shop', requireAuth, shopRoutes);
 app.use('/product', requireAuth, productRoutes);
 app.use('/category', requireAuth, categoryRoutes);
+app.use('/coupon', requireAuth, couponRoutes);
 
 module.exports = app;
