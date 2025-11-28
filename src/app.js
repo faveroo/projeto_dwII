@@ -30,6 +30,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, '../public')));
 
+const loadCategories = require('./middlewares/loadCategories');
+app.use(loadCategories);
+
 const authRoutes = require('./routes/auth.routes');
 const shopRoutes = require('./routes/shop.routes');
 const productRoutes = require('./routes/product.routes');
@@ -37,10 +40,8 @@ const categoryRoutes = require('./routes/category.routes');
 
 
 const authMiddleware = require('./middlewares/authMiddleware');
-const loadCategories = require('./middlewares/loadCategories');
 
 app.use(authMiddleware);
-app.use(loadCategories);
 
 const requireAuth = require('./middlewares/requireAuth');
 
