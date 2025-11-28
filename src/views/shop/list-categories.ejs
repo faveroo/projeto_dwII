@@ -14,40 +14,33 @@
                     </div>
                     <% } %>
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Descrição</th>
-                                </tr>
-                            </thead>
+                        <% categories.forEach(category=> { %>
+                            <div class="card bg-dark border-secondary h-100 hover-card shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start">
 
-                            <tbody>
-                                <% categories.forEach(category=> { %>
-                                    <tr>
-                                        <td>
-                                            <%= category.id %>
-                                        </td>
-                                        <td>
-                                            <%= category.name %>
-                                        </td>
-                                        <td>
-                                            <%= category.description %>
-                                        </td>
-                                        <td>
-                                            <a href="/category/edit-category/<%= category.id %>" class="action-btn">
-                                                ✏️ Editar
-                                            </a>
+                                        <!-- Ícone do produto -->
+                                        <div class="icon-container bg-success bg-opacity-25 text-success rounded-circle d-flex justify-content-center align-items-center"
+                                            style="width: 55px; height: 55px;">
+                                            <i class="bi bi-grid-3x3-gap fs-3"></i>
+                                        </div>
 
-                                            <a href="/category/delete-category/<%= category.id %>" class="action-btn"
-                                                style="color:#f87171;">
-                                                🗑️ Deletar
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <% }) %>
-                            </tbody>
-                        </table>
+                                        <!-- Conteúdo -->
+                                        <div class="flex-grow-1 ms-3">
+
+                                            <!-- Nome do produto -->
+                                            <h5 class="text-white mb-1 fw-bold">
+                                                <%= category.name %>
+                                            </h5>
+
+                                            <!-- Descrição -->
+                                            <p class="text-secondary small mb-2">
+                                                <%= category.description %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
 
     </div>

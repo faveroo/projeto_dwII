@@ -5,7 +5,8 @@ class ProductController {
     static async indexProduct(req, res) {
         try {
             const products = await Product.findAll()
-            return res.render('shop/shop', { products })
+            const categories = await Category.findAll()
+            return res.render('shop/list-products', { products, categories })
         } catch (error) {
             console.error(error)
             req.flash('error', 'Erro ao listar produtos')
