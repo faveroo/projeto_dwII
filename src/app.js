@@ -37,7 +37,10 @@ const categoryRoutes = require('./routes/category.routes');
 
 
 const authMiddleware = require('./middlewares/authMiddleware');
+const loadCategories = require('./middlewares/loadCategories');
+
 app.use(authMiddleware);
+app.use(loadCategories);
 
 const requireAuth = require('./middlewares/requireAuth');
 
