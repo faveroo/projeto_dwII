@@ -167,6 +167,21 @@
                                 </li>
                                 <% } %>
                         </ul>
+                        <hr>
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-2 text-secondary text-uppercase">
+                            <span>Categorias</span>
+                        </h6>
+                        <% if (categories && categories.length> 0) { %>
+                            <ul class="nav flex-column">
+                                <% categories.forEach(category=> { %>
+                                    <a href=" /category/list-categories/<%=category.id %>"
+                                        class="nav-link text-secondary">
+                                        <i class="me-2"></i>
+                                        <%= category.name %>
+                                    </a>
+                                    <% }) } %>
+                            </ul>
                     </div>
                 </nav>
 
