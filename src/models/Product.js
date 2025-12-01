@@ -1,5 +1,4 @@
 const { Model, DataTypes } = require('sequelize');
-
 const sequelize = require('../config/database');
 
 class Product extends Model { }
@@ -24,10 +23,6 @@ Product.init({
     category_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: 'categories',
-            key: 'id',
-        },
     },
 }, {
     sequelize,
@@ -36,4 +31,4 @@ Product.init({
     timestamps: true,
 });
 
-module.exports = Product
+module.exports = Product;
