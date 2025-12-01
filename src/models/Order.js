@@ -19,18 +19,10 @@ Order.init({
     coupon_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-            model: 'coupons',
-            key: 'id',
-        },
     },
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: 'users',
-            key: 'id',
-        },
     },
 }, {
     sequelize,
