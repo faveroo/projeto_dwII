@@ -4,7 +4,7 @@ class UserController {
 
     static async index(req, res) {
         const user = await User.findByPk(req.session.userId)
-        return res.render('profile', { user })
+        return res.render('shop/profile', { user })
     }
     static async update(req, res) {
         const user = await User.findByPk(req.session.userId)
