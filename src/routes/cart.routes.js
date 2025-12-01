@@ -3,7 +3,7 @@ const CartController = require('../controllers/CartController');
 
 const router = Router()
 
-router.get('/cart', CartController.index)
+router.get('/', CartController.index)
 router.post('/add/:id', CartController.add)
 router.post('/remove/:id', CartController.remove)
 
