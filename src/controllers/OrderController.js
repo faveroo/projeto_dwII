@@ -55,7 +55,7 @@ class OrderController {
             req.session.cart = [];
 
             req.flash('success', 'Pedido realizado com sucesso!');
-            return res.redirect('/order/list-orders');
+            return res.redirect('/order');
 
         } catch (error) {
             console.error('Erro ao criar pedido:', error);

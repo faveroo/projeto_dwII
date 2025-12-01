@@ -31,7 +31,7 @@ class AuthController {
 
     static async logout(req, res) {
         req.session.destroy()
-        return res.redirect('/shop')
+        return res.redirect('/login')
     }
 }
 

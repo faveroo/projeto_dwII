@@ -59,11 +59,13 @@
                                             </div>
 
                                             <!-- Botão Adicionar ao Carrinho -->
-                                            <button
-                                                class="btn btn-success w-100 btn-sm d-flex align-items-center justify-content-center gap-2">
-                                                <i class="bi bi-cart-plus"></i>
-                                                Adicionar ao carrinho
-                                            </button>
+                                            <form action="/cart/add/<%= product.id %>" method="POST">
+                                                <button
+                                                    class="btn btn-success w-100 btn-sm d-flex align-items-center justify-content-center gap-2">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                    Adicionar ao carrinho
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
