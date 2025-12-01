@@ -13,51 +13,76 @@ class CartController {
     }
 
     static async add(req, res) {
-        const { product_id } = req.body
+        const product_id = req.params.id
         const productId = Number(product_id)
-        const product = await Product.findByPk(productId)
 
-        if (!product) {
-            return res.status(404).json({ error: 'Produto não encontrado' })
+        if (!productId || isNaN(productId)) {
+            req.flash('error', 'ID do produto inválido');
+            return res.redirect('/shop');
         }
 
-        if (!req.session.cart) req.session.cart = []
+        try {
+            const product = await Product.findByPk(productId)
 
-        const existing = req.session.cart.find(item => item.id === productId)
+            if (!product) {
+                return res.status(404).json({ error: 'Produto não encontrado' })
+            }
 
-        if (existing) {
-            existing.quantity++
-        } else {
-            req.session.cart.push({ id: productId, name: product.name, price: product.price, quantity: 1 })
+            if (!req.session.cart) req.session.cart = []
+
+            const existing = req.session.cart.find(item => item.id === productId)
+
+            if (existing) {
+                existing.quantity++
+            } else {
+                req.session.cart.push({ id: productId, name: product.name, price: product.price, quantity: 1 })
+            }
+
+            req.flash('success', 'Produto adicionado ao carrinho')
+            return res.redirect('/cart')
+
+        } catch (error) {
+            console.error('Erro ao adicionar ao carrinho:', error);
+            req.flash('error', 'Erro ao adicionar produto');
+            return res.redirect('/shop');
         }
-
-        req.flash('success', 'Produto adicionado ao carrinho')
-        return res.redirect('/shop/cart')
     }
 
     static async remove(req, res) {
         const { product_id } = req.body
         const productId = Number(product_id)
-        const product = await Product.findByPk(productId)
 
-        if (!product) {
-            return res.status(404).json({ error: 'Produto não encontrado' })
+        if (!productId || isNaN(productId)) {
+            req.flash('error', 'ID do produto inválido');
+            return res.redirect('/shop/cart');
         }
 
-        if (!req.session.cart) req.session.cart = []
+        try {
+            const product = await Product.findByPk(productId)
 
-        const existing = req.session.cart.find(item => item.id === productId)
-
-        if (existing) {
-            existing.quantity--
-
-            if (existing.quantity <= 0) {
-                req.session.cart = req.session.cart.filter(item => item.id !== productId)
+            if (!product) {
+                return res.status(404).json({ error: 'Produto não encontrado' })
             }
-        }
 
-        req.flash('success', 'Produto removido do carrinho')
-        return res.redirect('/shop/cart')
+            if (!req.session.cart) req.session.cart = []
+
+            const existing = req.session.cart.find(item => item.id === productId)
+
+            if (existing) {
+                existing.quantity--
+
+                if (existing.quantity <= 0) {
+                    req.session.cart = req.session.cart.filter(item => item.id !== productId)
+                }
+            }
+
+            req.flash('success', 'Produto removido do carrinho')
+            return res.redirect('/shop/cart')
+        } catch (error) {
+            console.error('Erro ao remover do carrinho:', error);
+            req.flash('error', 'Erro ao remover produto');
+            return res.redirect('/shop/cart');
+        }
     }
 }
 
