@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST || 'localhost',
         dialect: 'mysql',
-        logging: false, // desativa logs do SQL (deixe true se quiser ver)
+        logging: console.log, // desativa logs do SQL (deixe true se quiser ver)
     }
 );
 
