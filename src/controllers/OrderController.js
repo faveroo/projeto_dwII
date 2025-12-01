@@ -30,15 +30,12 @@ class OrderController {
                 return res.redirect('/shop/cart');
             }
 
-            const user_id = req.session.userId; // Corrected from req.session.user.id based on AuthController
+            const user_id = req.session.userId;
 
-            // Calculate total
             const total = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
 
-            // Generate identification (simple timestamp based for now)
             const identification = `ORD-${Date.now()}`;
 
-            // Create Order
             const order = await Order.create({
                 identification,
                 total,
@@ -46,7 +43,6 @@ class OrderController {
                 user_id
             });
 
-            // Create OrderItems
             const orderItems = cart.map(item => ({
                 quantity: item.quantity,
                 price: item.price,
@@ -56,16 +52,15 @@ class OrderController {
 
             await OrderItem.bulkCreate(orderItems);
 
-            // Clear cart
             req.session.cart = [];
 
             req.flash('success', 'Pedido realizado com sucesso!');
-            return res.redirect('/shop');
+            return res.redirect('/order/list-orders');
 
         } catch (error) {
             console.error('Erro ao criar pedido:', error);
             req.flash('error', 'Erro ao processar o pedido.');
-            return res.redirect('/shop/cart');
+            return res.redirect('/cart');
         }
     }
 }
