@@ -18,7 +18,7 @@
                             <i class="bi bi-cart-x display-1 text-secondary mb-3"></i>
                             <h3 class="text-white mb-3">Seu carrinho está vazio</h3>
                             <p class="text-secondary mb-4">Adicione produtos para começar suas compras!</p>
-                            <a href="/product" class="btn btn-primary">
+                            <a href="/product/list-products" class="btn btn-primary">
                                 <i class="bi bi-shop me-2"></i>
                                 Ver Produtos
                             </a>
@@ -97,21 +97,43 @@
                                     <span class="text-secondary">Subtotal:</span>
                                     <span class="text-white">R$ <%= total.toFixed(2) %></span>
                                 </div>
-                                <hr class="border-secondary">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <span class="text-white fw-bold fs-5">Total:</span>
-                                    <span class="text-primary fw-bold fs-5">R$ <%= total.toFixed(2) %></span>
-                                </div>
-                                <form action="/order/checkout" method="POST">
-                                    <button type="submit" class="btn btn-primary w-100 py-2">
-                                        <i class="bi bi-check-circle me-2"></i>
-                                        Finalizar Compra
-                                    </button>
-                                </form>
-                                <a href="/product" class="btn btn-outline-secondary w-100 mt-2">
-                                    <i class="bi bi-arrow-left me-2"></i>
-                                    Continuar Comprando
-                                </a>
+                                <% if (coupon) { %>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-success">Cupom <%= coupon.code %> aplicado:</span>
+                                        <span class="text-success">- R$ <%= discount.toFixed(2) %></span>
+                                    </div>
+                                    <% } %>
+
+                                        <form action="/cart/apply-coupon" method="POST" class="mb-3">
+                                            <label class="text-secondary small mb-1">
+                                                <i class="bi bi-ticket-perforated"></i> Cupom de desconto
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="coupon"
+                                                    placeholder="Digite o cupom">
+                                                <button class="btn btn-outline-primary" type="submit">
+                                                    Aplicar
+                                                </button>
+                                            </div>
+                                        </form>
+
+
+                                        <hr class="border-secondary">
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <span class="text-white fw-bold fs-5">Total:</span>
+                                            <span class="text-primary fw-bold fs-5">R$ <%= finalPrice.toFixed(2) %>
+                                                    </span>
+                                        </div>
+                                        <form action="/order/checkout" method="POST">
+                                            <button type="submit" class="btn btn-primary w-100 py-2">
+                                                <i class="bi bi-check-circle me-2"></i>
+                                                Finalizar Compra
+                                            </button>
+                                        </form>
+                                        <a href="/product" class="btn btn-outline-secondary w-100 mt-2">
+                                            <i class="bi bi-arrow-left me-2"></i>
+                                            Continuar Comprando
+                                        </a>
                             </div>
                         </div>
                     </div>
