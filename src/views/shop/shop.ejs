@@ -1,7 +1,17 @@
 <%- include('partials/header') %>
 
     <div class="actions-grid">
+        <% if (error && error.length> 0) { %>
+            <div class="badge-error">
+                <%= error %>
+            </div>
+            <% } %>
 
+                <% if (success && success.length> 0) { %>
+                    <div class="badge-success">
+                        <%= success %>
+                    </div>
+                    <% } %>
     </div>
 
     <%- include('partials/footer') %>
