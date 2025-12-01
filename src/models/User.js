@@ -23,6 +23,10 @@ User.init(
         role: {
             type: DataTypes.STRING,
             defaultValue: 'user',
+        },
+        photo: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     },
     {

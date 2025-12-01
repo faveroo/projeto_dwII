@@ -3,19 +3,61 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="card">
+
+                <!-- Card: Dados do usuário -->
+                <div class="card mb-4">
                     <div class="card-header">
                         <h4>Perfil</h4>
                     </div>
-                    <div class="card-body">
-                        <p>Nome: <%= user.name %>
+                    <div class="card-body text-center">
+
+                        <!-- Foto do usuário -->
+                        <img src="<%= user.photo ? '/uploads/' + user.photo : '/images/default-user.png' %>"
+                            class="rounded-circle mb-3" width="150" height="150" alt="Foto do usuário">
+
+                        <p><strong>Nome:</strong>
+                            <%= user.name %>
                         </p>
-                        <p>Email: <%= user.email %>
+                        <p><strong>Email:</strong>
+                            <%= user.email %>
                         </p>
-                        <p>Role: <%= user.role %>
+                        <p><strong>Função:</strong>
+                            <%= user.role %>
                         </p>
                     </div>
                 </div>
+
+                <!-- Card: Formulário de edição -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Editar Informações</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/user/update" method="POST" enctype="multipart/form-data">
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nome</label>
+                                <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" class="form-control"
+                                    value="<%= user.email %>" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="photo" class="form-label">Foto de Perfil</label>
+                                <input type="file" id="photo" name="photo" class="form-control">
+                                <small class="text-muted">Formatos aceitos: JPG, PNG, JPEG</small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Salvar Alterações</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
