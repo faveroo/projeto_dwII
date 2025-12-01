@@ -104,7 +104,7 @@
 
                             <% if (user.role==='user' ) { %>
                                 <div class="col-12">
-                                    <a href="/order/create-order" class="text-decoration-none">
+                                    <a href="/cart" class="text-decoration-none">
                                         <div class="card bg-primary border-0 h-100 hover-card">
                                             <div class="card-body">
                                                 <div class="d-flex align-items-center">
@@ -112,9 +112,9 @@
                                                         <i class="bi bi-cart-plus fs-3 text-white"></i>
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
-                                                        <h5 class="card-title mb-0 text-white">Fazer Pedido</h5>
-                                                        <p class="card-text small text-white-50 mb-0">Criar um novo
-                                                            pedido</p>
+                                                        <h5 class="card-title mb-0 text-white">Carrinho</h5>
+                                                        <p class="card-text small text-white-50 mb-0">Ver seu carrinho
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,7 +160,7 @@
                             </li>
                             <% if (user.role==='user' ) { %>
                                 <li class="nav-item">
-                                    <a class="nav-link text-secondary" href="/order/my-orders">
+                                    <a class="nav-link text-secondary" href="/order">
                                         <i class="bi bi-bag-check me-2"></i>
                                         Meus Pedidos
                                     </a>
