@@ -1,8 +1,7 @@
-<%- include('partials/header') %>
+<%- include('../partials/header') %>
 
     <div class="container-fluid py-4">
-        <h2 class="h3 mb-4 text-white">Categorias</h2>
-
+        <h2 class="h3 mb-4 text-white">Cupons</h2>
         <% if (error && error.length> 0) { %>
             <div class="badge-error">
                 <%= error %>
@@ -16,7 +15,7 @@
                     <% } %>
 
                         <div class="row g-3">
-                            <% categories.forEach(category=> { %>
+                            <% coupons.forEach(coupon=> { %>
                                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                     <div class="card bg-dark border-secondary h-100 hover-card shadow-sm">
                                         <div class="card-body p-3">
@@ -25,7 +24,7 @@
                                                 <!-- Ícone do produto -->
                                                 <div class="icon-container bg-success bg-opacity-25 text-success rounded-circle d-flex justify-content-center align-items-center flex-shrink-0"
                                                     style="width: 45px; height: 45px;">
-                                                    <i class="bi bi-grid-3x3-gap fs-4"></i>
+                                                    <i class="bi bi-tag-fill fs-4"></i>
                                                 </div>
 
                                                 <!-- Conteúdo -->
@@ -33,12 +32,17 @@
 
                                                     <!-- Nome do produto -->
                                                     <h5 class="text-white mb-1 fw-bold text-truncate">
-                                                        <%= category.name %>
+                                                        <%= coupon.name %>
                                                     </h5>
 
                                                     <!-- Descrição -->
                                                     <p class="text-secondary small mb-0 text-truncate">
-                                                        <%= category.description %>
+                                                        <%= coupon.description %>
+                                                    </p>
+
+                                                    <!-- Preço -->
+                                                    <p class="text-success small mb-0 text-truncate">
+                                                        <%= coupon.percent %>%
                                                     </p>
                                                 </div>
                                             </div>
@@ -48,4 +52,4 @@
                                 <% }) %>
                         </div>
 
-    </div>
+                        <%- include('../partials/footer') %>

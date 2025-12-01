@@ -3,7 +3,7 @@ const session = require('express-session');
 const path = require('path');
 const flash = require('connect-flash');
 require('dotenv').config();
-require('./models/User');
+require('./models');
 
 const app = express();
 
@@ -38,6 +38,7 @@ const shopRoutes = require('./routes/shop.routes');
 const productRoutes = require('./routes/product.routes');
 const categoryRoutes = require('./routes/category.routes');
 const couponRoutes = require('./routes/coupon.routes');
+const cartRoutes = require('./routes/cart.routes');
 
 
 const authMiddleware = require('./middlewares/authMiddleware');
@@ -51,5 +52,6 @@ app.use('/shop', requireAuth, shopRoutes);
 app.use('/product', requireAuth, productRoutes);
 app.use('/category', requireAuth, categoryRoutes);
 app.use('/coupon', requireAuth, couponRoutes);
+app.use('/cart', requireAuth, cartRoutes);
 
 module.exports = app;

@@ -1,4 +1,4 @@
-<%- include('partials/header') %>
+<%- include('../partials/header') %>
 
     <div class="container">
         <div class="row justify-content-center">
@@ -20,7 +20,7 @@
                                 </div>
                                 <% } %>
 
-                                    <form action="/product/store-product" method="POST">
+                                    <form action="/coupon/store-coupon" method="POST">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Nome</label>
                                             <input type="text" id="name" name="name" required class="form-control"
@@ -54,4 +54,4 @@
         </div>
     </div>
 
-    <%- include('partials/footer') %>
+    <%- include('../partials/footer') %>

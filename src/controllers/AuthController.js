@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const { User } = require('../models')
 
 class AuthController {
     static async loginPage(req, res) {
@@ -31,7 +31,7 @@ class AuthController {
 
     static async logout(req, res) {
         req.session.destroy()
-        return res.redirect('/')
+        return res.redirect('/shop')
     }
 }
 

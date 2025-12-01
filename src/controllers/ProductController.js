@@ -1,12 +1,11 @@
-const Product = require('../models/Product')
-const Category = require('../models/Category')
+const { Product, Category } = require('../models')
 
 class ProductController {
     static async indexProduct(req, res) {
         try {
             const products = await Product.findAll()
             const categories = await Category.findAll()
-            return res.render('shop/list-products', { products, categories })
+            return res.render('shop/list/list-products', { products, categories })
         } catch (error) {
             console.error(error)
             req.flash('error', 'Erro ao listar produtos')
@@ -17,7 +16,7 @@ class ProductController {
     static async createProduct(req, res) {
         try {
             const categories = await Category.findAll()
-            return res.render('shop/create-product', { categories })
+            return res.render('shop/create/create-product', { categories })
         } catch (error) {
             console.error(error)
             req.flash('error', 'Erro ao listar categorias')

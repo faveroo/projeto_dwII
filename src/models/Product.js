@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const Category = require('./Category');
+
 const sequelize = require('../config/database');
 
 class Product extends Model { }
@@ -25,7 +25,7 @@ Product.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Category,
+            model: 'categories',
             key: 'id',
         },
     },
