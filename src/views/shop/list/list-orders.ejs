@@ -33,13 +33,15 @@
                         'pending': 'warning',
                         'paid': 'info',
                         'shipped': 'primary',
-                        'delivered': 'success'
+                        'delivered': 'success',
+                        'cancelled': 'danger'
                         };
                         const statusLabels = {
                         'pending': 'Pendente',
                         'paid': 'Pago',
                         'shipped': 'Enviado',
-                        'delivered': 'Entregue'
+                        'delivered': 'Entregue',
+                        'cancelled': 'Cancelado'
                         };
                         const statusColor = statusColors[order.status] || 'secondary';
                         const statusLabel = statusLabels[order.status] || order.status;
@@ -65,7 +67,7 @@
                                             <span class="badge bg-<%= statusColor %> me-2">
                                                 <%= statusLabel %>
                                             </span>
-                                            <small class="text-secondary">
+                                            <small class="text-white">
                                                 <i class="bi bi-calendar me-1"></i>
                                                 <%= orderDate %>
                                             </small>
@@ -128,7 +130,7 @@
                                             <span class="text-white fw-bold fs-5">
                                                 Total:
                                                 <span class="text-primary">R$ <%= Number(order.total).toFixed(2) %>
-                                                        </span>
+                                                </span>
                                             </span>
                                         </div>
                                     </div>
