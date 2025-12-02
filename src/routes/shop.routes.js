@@ -2,8 +2,8 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.render('shop/shop')
-})
+const ShopController = require('../controllers/ShopController');
+
+router.get('/', ShopController.dashboard);
 
 module.exports = router
