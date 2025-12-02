@@ -1,0 +1,270 @@
+<%- include('./partials/header') %>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <!-- Coluna Principal - Imagem e Galeria -->
+            <div class="col-lg-6 mb-4">
+                <div class="card bg-dark border-secondary shadow-lg">
+                    <div class="card-body p-4">
+                        <!-- Imagem Principal do Produto -->
+                        <div class="product-image-container mb-3">
+                            <% if (product.image) { %>
+                                <img src="<%= product.image %>" alt="<%= product.name %>"
+                                    class="img-fluid rounded-3 w-100" style="max-height: 500px; object-fit: cover;">
+                                <% } else { %>
+                                    <div class="placeholder-image d-flex align-items-center justify-content-center bg-secondary bg-opacity-25 rounded-3"
+                                        style="height: 500px;">
+                                        <div class="text-center">
+                                            <i class="bi bi-image text-secondary" style="font-size: 5rem;"></i>
+                                            <p class="text-secondary mt-3">Sem imagem disponível</p>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                        </div>
+
+                        <!-- Badge de Disponibilidade -->
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <% if (product.stock> 0) { %>
+                                <span
+                                    class="badge bg-success bg-opacity-25 text-success border border-success px-3 py-2">
+                                    <i class="bi bi-check-circle me-1"></i> Em Estoque
+                                </span>
+                                <% } else { %>
+                                    <span
+                                        class="badge bg-danger bg-opacity-25 text-danger border border-danger px-3 py-2">
+                                        <i class="bi bi-x-circle me-1"></i> Fora de Estoque
+                                    </span>
+                                    <% } %>
+
+                                        <!-- Categoria -->
+                                        <% categories.forEach(category=> { %>
+                                            <% if (category.id===product.category_id) { %>
+                                                <span
+                                                    class="badge bg-primary bg-opacity-25 text-primary border border-primary px-3 py-2">
+                                                    <i class="bi bi-grid-3x3-gap me-1"></i>
+                                                    <%= category.name %>
+                                                </span>
+                                                <% } %>
+                                                    <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna de Informações -->
+            <div class="col-lg-6">
+                <!-- Card Principal de Informações -->
+                <div class="card bg-dark border-secondary shadow-lg mb-4">
+                    <div class="card-body p-4">
+                        <!-- Título e ID -->
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h1 class="text-white mb-0 fw-bold">
+                                <%= product.name %>
+                            </h1>
+                            <span class="badge bg-secondary bg-opacity-50 text-light">ID: <%= product.id %></span>
+                        </div>
+
+                        <!-- Preço -->
+                        <div
+                            class="price-section mb-4 p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25">
+                            <div class="d-flex align-items-baseline">
+                                <span class="text-success fw-light me-2" style="font-size: 1.2rem;">R$</span>
+                                <span class="text-success fw-bold" style="font-size: 2.5rem;">
+                                    <%= product.price %>
+                                </span>
+                            </div>
+                            <small class="text-success">Preço à vista</small>
+                        </div>
+
+                        <!-- Descrição -->
+                        <div class="mb-4">
+                            <h5 class="text-white mb-3">
+                                <i class="bi bi-card-text me-2"></i>Descrição
+                            </h5>
+                            <p class="text-secondary">
+                                <%= product.description %>
+                            </p>
+                        </div>
+
+                        <!-- Informações de Estoque -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div
+                                    class="info-card p-3 bg-secondary bg-opacity-10 rounded-3 border border-secondary border-opacity-25">
+                                    <div class="d-flex align-items-center">
+                                        <div class="icon-box bg-info bg-opacity-25 text-info rounded-circle p-3 me-3">
+                                            <i class="bi bi-box-seam fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <small class="text-secondary d-block">Estoque Disponível</small>
+                                            <h4 class="text-white mb-0">
+                                                <%= product.stock %> unidades
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div
+                                    class="info-card p-3 bg-secondary bg-opacity-10 rounded-3 border border-secondary border-opacity-25">
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="icon-box bg-warning bg-opacity-25 text-warning rounded-circle p-3 me-3">
+                                            <i class="bi bi-star fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <small class="text-secondary d-block">Avaliação</small>
+                                            <h4 class="text-white mb-0">
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-half text-warning"></i>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-grid gap-2">
+                            <% if (product.stock> 0) { %>
+                                <form action="/cart/add/<%= product.id %>" method="POST">
+                                    <button
+                                        class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-cart-plus fs-5"></i>
+                                        <span>Adicionar ao Carrinho</span>
+                                    </button>
+                                </form>
+                                <% } else { %>
+                                    <button class="btn btn-secondary btn-lg w-100" disabled>
+                                        <i class="bi bi-x-circle me-2"></i>Produto Indisponível
+                                    </button>
+                                    <% } %>
+
+                                        <a href="/product/list-products" class="btn btn-outline-light">
+                                            <i class="bi bi-arrow-left me-2"></i>Voltar para Produtos
+                                        </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Informações Adicionais -->
+                <div class="card bg-dark border-secondary shadow-lg">
+                    <div class="card-body p-4">
+                        <h5 class="text-white mb-3">
+                            <i class="bi bi-info-circle me-2"></i>Informações Adicionais
+                        </h5>
+
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="p-3 bg-secondary bg-opacity-10 rounded-3">
+                                    <small class="text-secondary d-block mb-1">SKU</small>
+                                    <span class="text-white">PRD-<%= product.id.toString().padStart(6, '0' ) %></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-3 bg-secondary bg-opacity-10 rounded-3">
+                                    <small class="text-secondary d-block mb-1">Peso</small>
+                                    <span class="text-white">1.5 kg</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-3 bg-secondary bg-opacity-10 rounded-3">
+                                    <small class="text-secondary d-block mb-1">Dimensões</small>
+                                    <span class="text-white">30x20x10 cm</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-3 bg-secondary bg-opacity-10 rounded-3">
+                                    <small class="text-secondary d-block mb-1">Garantia</small>
+                                    <span class="text-white">12 meses</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Características -->
+                        <div class="mt-4">
+                            <h6 class="text-white mb-3">Características</h6>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    <span class="text-secondary">Entrega rápida em todo Brasil</span>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    <span class="text-secondary">Produto original e lacrado</span>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    <span class="text-secondary">Garantia do fabricante</span>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    <span class="text-secondary">Suporte técnico especializado</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Formas de Pagamento -->
+                        <div class="mt-4">
+                            <h6 class="text-white mb-3">Formas de Pagamento</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-secondary bg-opacity-50 px-3 py-2">
+                                    <i class="bi bi-credit-card me-1"></i> Cartão de Crédito
+                                </span>
+                                <span class="badge bg-secondary bg-opacity-50 px-3 py-2">
+                                    <i class="bi bi-credit-card-2-front me-1"></i> Cartão de Débito
+                                </span>
+                                <span class="badge bg-secondary bg-opacity-50 px-3 py-2">
+                                    <i class="bi bi-upc-scan me-1"></i> PIX
+                                </span>
+                                <span class="badge bg-secondary bg-opacity-50 px-3 py-2">
+                                    <i class="bi bi-receipt me-1"></i> Boleto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .product-image-container img {
+            transition: transform 0.3s ease;
+        }
+
+        .product-image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .info-card {
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+    <%- include('./partials/footer') %>

@@ -1,17 +1,323 @@
-<%- include('partials/header') %>
+<%- include('./partials/header') %>
 
-    <div class="actions-grid">
-        <% if (error && error.length> 0) { %>
-            <div class="badge-error">
-                <%= error %>
+    <div class="container-fluid py-4">
+        <% if (user && user.role==='admin' ) { %>
+            <!-- ADMIN DASHBOARD -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="h3 text-white mb-1">Painel Administrativo</h2>
+                    <p class="text-secondary mb-0">Visão geral da sua loja</p>
+                </div>
+                <div class="date text-secondary">
+                    <i class="bi bi-calendar3 me-2"></i>
+                    <%= new Date().toLocaleDateString('pt-BR') %>
+                </div>
             </div>
-            <% } %>
 
-                <% if (success && success.length> 0) { %>
-                    <div class="badge-success">
-                        <%= success %>
+            <!-- Stats Cards -->
+            <div class="row g-4 mb-5">
+                <!-- Total Revenue -->
+                <div class="col-12 col-md-4">
+                    <div class="card bg-dark border-secondary h-100 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="icon-box bg-success bg-opacity-25 text-success rounded-3 p-3">
+                                    <i class="bi bi-currency-dollar fs-4"></i>
+                                </div>
+                                <span
+                                    class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">
+                                    Total
+                                </span>
+                            </div>
+                            <h3 class="text-white fw-bold mb-1">R$ <%=
+                                    parseFloat(totalRevenue).toFixed(2).replace('.', ',' ) %>
+                            </h3>
+                            <p class="text-secondary small mb-0">Receita Total</p>
+                        </div>
                     </div>
-                    <% } %>
+                </div>
+
+                <!-- Total Products -->
+                <div class="col-12 col-md-4">
+                    <div class="card bg-dark border-secondary h-100 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="icon-box bg-primary bg-opacity-25 text-primary rounded-3 p-3">
+                                    <i class="bi bi-box-seam fs-4"></i>
+                                </div>
+                                <a href="/product/list-products" class="btn btn-sm btn-outline-primary">Ver todos</a>
+                            </div>
+                            <h3 class="text-white fw-bold mb-1">
+                                <%= productsCount %>
+                            </h3>
+                            <p class="text-secondary small mb-0">Produtos Cadastrados</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Categories -->
+                <div class="col-12 col-md-4">
+                    <div class="card bg-dark border-secondary h-100 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="icon-box bg-warning bg-opacity-25 text-warning rounded-3 p-3">
+                                    <i class="bi bi-grid-3x3-gap fs-4"></i>
+                                </div>
+                                <a href="/category/list-categories" class="btn btn-sm btn-outline-warning">Ver todas</a>
+                            </div>
+                            <h3 class="text-white fw-bold mb-1">
+                                <%= categoriesCount %>
+                            </h3>
+                            <p class="text-secondary small mb-0">Categorias Ativas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders Section -->
+            <div class="card bg-dark border-secondary shadow-lg">
+                <div
+                    class="card-header bg-transparent border-secondary py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="text-white mb-0">
+                        <i class="bi bi-clock-history me-2"></i>Pedidos Recentes
+                    </h5>
+                    <a href="/order/list-orders" class="btn btn-sm btn-outline-light">Ver todos os pedidos</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover mb-0 align-middle">
+                            <thead class="bg-secondary bg-opacity-10">
+                                <tr>
+                                    <th class="ps-4 py-3">ID</th>
+                                    <th class="py-3">Cliente</th>
+                                    <th class="py-3">Data</th>
+                                    <th class="py-3">Status</th>
+                                    <th class="py-3 text-end pe-4">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (recentOrders.length> 0) { %>
+                                    <% recentOrders.forEach(order=> { %>
+                                        <tr>
+                                            <td class="ps-4">
+                                                <span class="text-secondary">#<%= order.id %></span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-initials bg-secondary bg-opacity-25 text-light rounded-circle me-2 d-flex align-items-center justify-content-center"
+                                                        style="width: 32px; height: 32px; font-size: 0.8rem;">
+                                                        <%= order.User ? order.User.name.charAt(0).toUpperCase() : '?'
+                                                            %>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-white">
+                                                            <%= order.User ? order.User.name : 'Usuário Removido' %>
+                                                        </div>
+                                                        <div class="text-secondary small">
+                                                            <%= order.User ? order.User.email : '' %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-secondary">
+                                                <%= new Date(order.createdAt).toLocaleDateString('pt-BR') %>
+                                            </td>
+                                            <td>
+                                                <% let statusClass='bg-secondary' ; let statusIcon='bi-circle' ;
+                                                    if(order.status==='paid' ) { statusClass='bg-success' ;
+                                                    statusIcon='bi-check-circle' ; } else if(order.status==='pending' )
+                                                    { statusClass='bg-warning text-dark' ; statusIcon='bi-clock' ; }
+                                                    else if(order.status==='shipped' ) { statusClass='bg-info text-dark'
+                                                    ; statusIcon='bi-truck' ; } else if(order.status==='delivered' ) {
+                                                    statusClass='bg-primary' ; statusIcon='bi-box-seam' ; } %>
+                                                    <span class="badge <%= statusClass %> bg-opacity-75 px-2 py-1">
+                                                        <i class="bi <%= statusIcon %> me-1"></i>
+                                                        <%= order.status %>
+                                                    </span>
+                                            </td>
+                                            <td class="text-end pe-4 fw-bold text-white">
+                                                R$ <%= parseFloat(order.total).toFixed(2).replace('.', ',' ) %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="5" class="text-center py-5 text-secondary">
+                                                        <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                                                        Nenhum pedido recente encontrado
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <% } else { %>
+                <!-- USER DASHBOARD -->
+                <!-- Hero Section -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="card bg-dark border-secondary shadow-lg overflow-hidden position-relative">
+                            <div
+                                class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-primary-to-secondary opacity-10">
+                            </div>
+                            <div class="card-body p-5 position-relative z-1">
+                                <h1 class="display-5 fw-bold text-white mb-3">Bem-vindo de volta!</h1>
+                                <p class="lead text-white mb-4">Confira as novidades que separamos para você.</p>
+                                <a href="/product/list-products" class="btn btn-primary btn-lg px-4">
+                                    <i class="bi bi-bag me-2"></i>Explorar Loja
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Featured Products -->
+                    <div class="col-lg-8">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="h4 text-white mb-0">
+                                <i class="bi bi-star me-2 text-warning"></i>Destaques
+                            </h3>
+                            <a href="/product/list-products" class="text-decoration-none text-primary">Ver tudo <i
+                                    class="bi bi-arrow-right"></i></a>
+                        </div>
+
+                        <div class="row g-3">
+                            <% if (featuredProducts && featuredProducts.length> 0) { %>
+                                <% featuredProducts.forEach(product=> { %>
+                                    <div class="col-md-6">
+                                        <div class="card bg-dark border-secondary h-100 hover-card shadow-sm">
+                                            <div class="card-body p-3">
+                                                <a href="/product/product-detail/<%= product.id %>"
+                                                    class="text-decoration-none">
+                                                    <div class="d-flex align-items-center">
+                                                        <!-- Product Image/Icon -->
+                                                        <div class="flex-shrink-0">
+                                                            <% if (product.image) { %>
+                                                                <img src="<%= product.image %>"
+                                                                    alt="<%= product.name %>"
+                                                                    class="rounded-3 object-fit-cover"
+                                                                    style="width: 80px; height: 80px;">
+                                                                <% } else { %>
+                                                                    <div class="bg-secondary bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center text-secondary"
+                                                                        style="width: 80px; height: 80px;">
+                                                                        <i class="bi bi-box-seam fs-3"></i>
+                                                                    </div>
+                                                                    <% } %>
+                                                        </div>
+
+                                                        <!-- Product Info -->
+                                                        <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                            <h6 class="text-white mb-1 text-truncate">
+                                                                <%= product.name %>
+                                                            </h6>
+                                                            <p class="text-success fw-bold mb-1">R$ <%=
+                                                                    parseFloat(product.price).toFixed(2).replace('.', ','
+                                                                    ) %>
+                                                            </p>
+                                                            <small class="text-secondary d-block text-truncate">
+                                                                <%= product.description %>
+                                                            </small>
+                                                        </div>
+
+                                                        <div class="ms-3">
+                                                            <button
+                                                                class="btn btn-sm btn-outline-success rounded-circle p-2">
+                                                                <i class="bi bi-cart-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <div class="col-12">
+                                                <div
+                                                    class="alert alert-secondary bg-dark border-secondary text-secondary">
+                                                    <i class="bi bi-info-circle me-2"></i>Nenhum produto em destaque no
+                                                    momento.
+                                                </div>
+                                            </div>
+                                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders (Sidebar) -->
+                    <div class="col-lg-4">
+                        <div class="card bg-dark border-secondary h-100 shadow-sm">
+                            <div class="card-header bg-transparent border-secondary py-3">
+                                <h5 class="text-white mb-0">
+                                    <i class="bi bi-clock-history me-2"></i>Seus Pedidos
+                                </h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <% if (recentOrders && recentOrders.length> 0) { %>
+                                        <% recentOrders.forEach(order=> { %>
+                                            <div class="list-group-item bg-transparent border-secondary px-4 py-3">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <span class="text-white fw-medium">Pedido #<%= order.id %></span>
+                                                    <span class="text-success fw-bold">R$ <%=
+                                                            parseFloat(order.total).toFixed(2).replace('.', ',' ) %>
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-secondary">
+                                                        <%= new Date(order.createdAt).toLocaleDateString('pt-BR') %>
+                                                    </small>
+                                                    <% let statusClass='bg-secondary' ; if(order.status==='paid' )
+                                                        statusClass='bg-success' ; else if(order.status==='pending' )
+                                                        statusClass='bg-warning text-dark' ; else
+                                                        if(order.status==='shipped' ) statusClass='bg-info text-dark' ;
+                                                        else if(order.status==='delivered' ) statusClass='bg-primary' ;
+                                                        %>
+                                                        <span
+                                                            class="badge <%= statusClass %> bg-opacity-75 rounded-pill"
+                                                            style="font-size: 0.7rem;">
+                                                            <%= order.status %>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                                                <div class="p-3 text-center border-top border-secondary">
+                                                    <a href="/order"
+                                                        class="btn btn-sm btn-outline-light w-100">Ver Histórico
+                                                        Completo</a>
+                                                </div>
+                                                <% } else { %>
+                                                    <div class="p-5 text-center text-secondary">
+                                                        <i class="bi bi-bag-x fs-1 d-block mb-3"></i>
+                                                        <p class="mb-3">Você ainda não fez nenhum pedido.</p>
+                                                        <a href="/product/list-products"
+                                                            class="btn btn-sm btn-primary">Começar a Comprar</a>
+                                                    </div>
+                                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
     </div>
 
-    <%- include('partials/footer') %>
+    <style>
+        .bg-gradient-primary-to-secondary {
+            background: linear-gradient(45deg, var(--bs-primary), var(--bs-secondary));
+        }
+
+        .hover-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+        }
+    </style>
+
+    <%- include('./partials/footer') %>
