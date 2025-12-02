@@ -28,7 +28,9 @@ class ProductController {
         try {
             const { name, description, price, stock, category_id } = req.body
             const p = price.replace(',', '.')
-            Product.create({ name, description, price: p, stock, category_id })
+            const image = req.file ? `/uploads/${req.file.filename}` : null
+
+            Product.create({ name, description, price: p, stock, category_id, image })
                 .then(() => {
                     req.flash('success', 'Produto criado com sucesso')
                     return res.redirect('/shop')
@@ -41,6 +43,19 @@ class ProductController {
         } catch (error) {
             console.error(error);
             req.flash('error', 'Erro ao criar produto')
+            return res.redirect('/shop')
+        }
+    }
+
+    static async showProduct(req, res) {
+        try {
+            const { id } = req.params
+            const product = await Product.findByPk(id)
+            const categories = await Category.findAll()
+            return res.render('shop/product-detail', { product, categories })
+        } catch (error) {
+            console.error(error)
+            req.flash('error', 'Erro ao listar produtos')
             return res.redirect('/shop')
         }
     }
