@@ -29,6 +29,21 @@ class AuthController {
             })
     }
 
+    static async register(req, res) {
+        const { name, email, password } = req.body
+
+        User.create({ name, email, password })
+            .then(() => {
+                req.flash('success', 'Usuário criado com sucesso')
+                return res.redirect('/')
+            })
+            .catch(error => {
+                console.error(error)
+                req.flash('error', 'Erro ao criar usuário')
+                return res.redirect('/')
+            })
+    }
+
     static async logout(req, res) {
         req.session.destroy()
         return res.redirect('/')

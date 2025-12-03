@@ -2,70 +2,111 @@
 <html lang="pt-BR" data-bs-theme="dark">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Sistema Premium</title>
-    <!-- Bootstrap 5 CSS -->
+    <title>Login | Sistema</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .fade-area {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body class="bg-body-tertiary">
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card border-secondary shadow-lg" style="width: 100%; max-width: 400px;">
-            <div class="card-body p-4">
-                <div class="text-center mb-4">
-                    <h2 class="fw-bold text-white mb-1">Bem-vindo</h2>
-                    <p class="text-secondary">Faça login para continuar</p>
+        <div class="card border-secondary shadow-lg p-4" style="width: 100%; max-width: 420px;">
+
+            <!-- HEADER -->
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-white" id="form-title">Login</h2>
+                <p class="text-secondary" id="form-subtitle">Entre para acessar o sistema</p>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form" class="fade-area" action="/login" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="email@exemplo.com" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Senha</label>
+                    <input type="password" name="password" class="form-control" placeholder="Sua senha" required>
                 </div>
 
-                <% if (error && error.length> 0) { %>
-                    <div class="alert alert-danger d-flex align-items-center py-2" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
-                            <path
-                                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                        </svg>
-                        <div>
-                            <%= error %>
-                        </div>
-                    </div>
-                    <% } %>
+                <button class="btn btn-primary w-100 py-2">Entrar</button>
+            </form>
 
-                        <% if (success && success.length> 0) { %>
-                            <div class="alert alert-success d-flex align-items-center py-2" role="alert">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
-                                    <path
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                                </svg>
-                                <div>
-                                    <%= success %>
-                                </div>
-                            </div>
-                            <% } %>
+            <!-- REGISTER FORM -->
+            <form id="register-form" class="fade-area hidden" action="/register" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="name" class="form-control" placeholder="Seu nome" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="email@exemplo.com" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Senha</label>
+                    <input type="password" name="password" class="form-control" placeholder="Crie uma senha" required>
+                </div>
 
-                                <form action="/login" method="POST">
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                            placeholder="seu@email.com" required />
-                                    </div>
+                <button class="btn btn-success w-100 py-2">Criar Conta</button>
+            </form>
 
-                                    <div class="mb-4">
-                                        <label for="password" class="form-label">Senha</label>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Sua senha" required />
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary w-100 py-2 fw-medium">Entrar no
-                                        Sistema</button>
-                                </form>
+            <!-- TOGGLE LINK -->
+            <div class="text-center mt-3">
+                <a href="#" id="toggle-link" class="text-decoration-none">
+                    Não tem conta? Criar conta
+                </a>
             </div>
+
         </div>
     </div>
 
+
+    <script>
+        const loginForm = document.getElementById("login-form");
+        const registerForm = document.getElementById("register-form");
+        const toggleLink = document.getElementById("toggle-link");
+        const title = document.getElementById("form-title");
+        const subtitle = document.getElementById("form-subtitle");
+
+        toggleLink.addEventListener("click", () => {
+
+            const loginHidden = loginForm.classList.contains("hidden");
+
+            if (loginHidden) {
+                // VOLTA PARA LOGIN
+                registerForm.classList.add("hidden");
+                loginForm.classList.remove("hidden");
+
+                title.textContent = "Login";
+                subtitle.textContent = "Entre para acessar o sistema";
+                toggleLink.textContent = "Não tem conta? Criar conta";
+
+            } else {
+                // VAI PARA REGISTRO
+                loginForm.classList.add("hidden");
+                registerForm.classList.remove("hidden");
+
+                title.textContent = "Criar Conta";
+                subtitle.textContent = "Preencha os dados abaixo";
+                toggleLink.textContent = "Já possui conta? Fazer login";
+            }
+        });
+    </script>
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
