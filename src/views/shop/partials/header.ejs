@@ -25,7 +25,6 @@
                             <%= error %>
                         </div>
                         <% } %>
-
                             <% if (success && success.length> 0) { %>
                                 <div
                                     class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3 p-3 shadow">
@@ -36,15 +35,38 @@
                                         <a href="/shop" class="text-white text-decoration-none">Dashboard</a>
                                     </h4>
                                     <% if (user) { %>
+
                                         <p class="mb-0 text-secondary small">
-                                            Olá, <strong class="text-white">
-                                                <%= user.name %>
-                                            </strong>
+                                            Olá, <a href="/user/profile" class="text-decoration-none"><strong
+                                                    class="text-white">
+                                                    <%= user.name %>
+                                                </strong></a>
                                             <span class="badge bg-secondary text-uppercase">
                                                 <%= user.role %>
                                             </span>
                                         </p>
                                         <% } %>
+
+                                            <% if (success && success.length> 0) { %>
+                                                <div
+                                                    class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3 p-3 shadow">
+                                                    <%= success %>
+                                                </div>
+                                                <% } %>
+                                                    <h4 class="mb-1">
+                                                        <a href="/shop"
+                                                            class="text-white text-decoration-none">Dashboard</a>
+                                                    </h4>
+                                                    <% if (user) { %>
+                                                        <p class="mb-0 text-secondary small">
+                                                            Olá, <strong class="text-white">
+                                                                <%= user.name %>
+                                                            </strong>
+                                                            <span class="badge bg-secondary text-uppercase">
+                                                                <%= user.role %>
+                                                            </span>
+                                                        </p>
+                                                        <% } %>
                 </div>
                 <% if (user) { %>
                     <a href="/logout" class="btn btn-outline-danger btn-sm">
