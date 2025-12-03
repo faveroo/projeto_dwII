@@ -6,39 +6,25 @@
                 <div class="form-card">
                     <h1>Criar Categoria</h1>
 
-                    <% if (error && error.length> 0) { %>
-                        <div class="badge-error">
-                            <i class="fas fa-exclamation-circle me-2"></i>
-                            <%= error %>
+                    <form action="/category/store-category" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" id="name" name="name" required class="form-control"
+                                placeholder="Ex: Eletrônicos">
                         </div>
-                        <% } %>
 
-                            <% if (success && success.length> 0) { %>
-                                <div class="badge-success">
-                                    <i class="fas fa-check-circle me-2"></i>
-                                    <%= success %>
-                                </div>
-                                <% } %>
+                        <div class="mb-4">
+                            <label for="description" class="form-label">Descrição</label>
+                            <input type="text" id="description" name="description" required class="form-control"
+                                placeholder="Descrição da categoria">
+                        </div>
 
-                                    <form action="/category/store-category" method="POST">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Nome</label>
-                                            <input type="text" id="name" name="name" required class="form-control"
-                                                placeholder="Ex: Eletrônicos">
-                                        </div>
-
-                                        <div class="mb-4">
-                                            <label for="description" class="form-label">Descrição</label>
-                                            <input type="text" id="description" name="description" required
-                                                class="form-control" placeholder="Descrição da categoria">
-                                        </div>
-
-                                        <div class="d-grid">
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-plus-circle me-2"></i>Criar Categoria
-                                            </button>
-                                        </div>
-                                    </form>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus-circle me-2"></i>Criar Categoria
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

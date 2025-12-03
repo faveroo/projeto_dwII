@@ -15,23 +15,36 @@
 
 <body>
     <!-- Fixed Header -->
-    <header class="fixed-top bg-dark border-bottom border-secondary shadow-sm">
+    <header class="fixed-top bg-dark border-bottom shadow-sm">
         <div class="container-fluid px-4 py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h4 class="mb-1">
-                        <a href="/shop" class="text-white text-decoration-none">Dashboard</a>
-                    </h4>
-                    <% if (user) { %>
-                        <p class="mb-0 text-secondary small">
-                            Olá, <strong class="text-white">
-                                <%= user.name %>
-                            </strong>
-                            <span class="badge bg-secondary text-uppercase">
-                                <%= user.role %>
-                            </span>
-                        </p>
+                    <% if (error && error.length> 0) { %>
+                        <div
+                            class="alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3 p-3 shadow">
+                            <%= error %>
+                        </div>
                         <% } %>
+
+                            <% if (success && success.length> 0) { %>
+                                <div
+                                    class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3 p-3 shadow">
+                                    <%= success %>
+                                </div>
+                                <% } %>
+                                    <h4 class="mb-1">
+                                        <a href="/shop" class="text-white text-decoration-none">Dashboard</a>
+                                    </h4>
+                                    <% if (user) { %>
+                                        <p class="mb-0 text-secondary small">
+                                            Olá, <strong class="text-white">
+                                                <%= user.name %>
+                                            </strong>
+                                            <span class="badge bg-secondary text-uppercase">
+                                                <%= user.role %>
+                                            </span>
+                                        </p>
+                                        <% } %>
                 </div>
                 <% if (user) { %>
                     <a href="/logout" class="btn btn-outline-danger btn-sm">
@@ -56,8 +69,10 @@
                                                 <i class="bi bi-box-seam fs-3 text-primary"></i>
                                             </div>
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="card-title mb-0 text-white">Criar Produto</h6>
-                                                <p class="card-text small text-secondary mb-0">Adicionar novo produto
+                                                <h6 class="card-title mb-0 text-white">Criar Produto
+                                                </h6>
+                                                <p class="card-text small text-secondary mb-0">Adicionar
+                                                    novo produto
                                                 </p>
                                             </div>
                                         </div>
@@ -74,8 +89,10 @@
                                                 <i class="bi bi-grid-3x3-gap fs-3 text-success"></i>
                                             </div>
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="card-title mb-0 text-white">Criar Categoria</h6>
-                                                <p class="card-text small text-secondary mb-0">Adicionar nova categoria
+                                                <h6 class="card-title mb-0 text-white">Criar Categoria
+                                                </h6>
+                                                <p class="card-text small text-secondary mb-0">Adicionar
+                                                    nova categoria
                                                 </p>
                                             </div>
                                         </div>
@@ -93,7 +110,8 @@
                                             </div>
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="card-title mb-0 text-white">Criar Cupom</h6>
-                                                <p class="card-text small text-secondary mb-0">Adicionar novo cupom</p>
+                                                <p class="card-text small text-secondary mb-0">Adicionar
+                                                    novo cupom</p>
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +133,8 @@
                                                                         <i class="bi bi-cart-plus fs-3 text-white"></i>
                                                                     </div>
                                                                     <div class="flex-grow-1 ms-3">
-                                                                        <h5 class="card-title mb-0 text-white">Carrinho
+                                                                        <h5 class="card-title mb-0 text-white">
+                                                                            Carrinho
                                                                         </h5>
                                                                         <p class="card-text small text-white-50 mb-0">
                                                                             Ver seu
