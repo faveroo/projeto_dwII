@@ -23,10 +23,11 @@
                         <a href="/shop" class="text-white text-decoration-none">Dashboard</a>
                     </h4>
                     <% if (user) { %>
+
                         <p class="mb-0 text-secondary small">
-                            Olá, <strong class="text-white">
-                                <%= user.name %>
-                            </strong>
+                            Olá, <a href="/user/profile" class="text-decoration-none"><strong class="text-white">
+                                    <%= user.name %>
+                                </strong></a>
                             <span class="badge bg-secondary text-uppercase">
                                 <%= user.role %>
                             </span>
