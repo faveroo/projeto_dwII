@@ -223,12 +223,23 @@
                                                             </small>
                                                         </div>
 
-                                                        <div class="ms-3">
-                                                            <button
-                                                                class="btn btn-sm btn-outline-success rounded-circle p-2">
-                                                                <i class="bi bi-cart-plus"></i>
-                                                            </button>
-                                                        </div>
+                                                        <% if (product.stock> 0) { %>
+                                                            <div class="ms-3">
+                                                                <form action="/cart/add/<%= product.id %>"
+                                                                    method="post">
+                                                                    <button
+                                                                        class="btn btn-sm btn-outline-success rounded-circle p-2">
+                                                                        <i class="bi bi-cart-plus"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                            <% } else { %>
+                                                                <div class="ms-3">
+                                                                    <span class="badge bg-danger text-white">Sem
+                                                                        estoque</span>
+                                                                </div>
+                                                                <% } %>
+
                                                     </div>
                                                 </a>
                                             </div>
@@ -294,7 +305,8 @@
                                                         <i class="bi bi-bag-x fs-1 d-block mb-3"></i>
                                                         <p class="mb-3">Você ainda não fez nenhum pedido.</p>
                                                         <a href="/product/list-products"
-                                                            class="btn btn-sm btn-primary">Começar a Comprar</a>
+                                                            class="btn btn-sm btn-primary">Começar a
+                                                            Comprar</a>
                                                     </div>
                                                     <% } %>
                                 </div>
