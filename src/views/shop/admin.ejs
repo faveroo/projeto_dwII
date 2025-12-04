@@ -1,0 +1,117 @@
+<%- include('partials/header') %>
+
+    <div class="container py-5">
+
+        <!-- TÍTULO -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Gerenciar Administradores</h2>
+        </div>
+
+        <!-- FORMULÁRIO PARA ADICIONAR NOVO ADMIN -->
+        <div class="card shadow-sm border-0 mb-5">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Adicionar Novo Administrador</h5>
+
+                <form action="/user/admin" method="POST" class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Nome</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Senha</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Função</label>
+                        <select name="role" class="form-select" required>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button class="btn btn-primary px-4">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- LISTA DE USUÁRIOS -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Administradores Registrados</h5>
+
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Função</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% users.forEach(u=> { %>
+                                <tr>
+                                    <td class="fw-semibold">
+                                        <%= u.name %>
+                                    </td>
+                                    <td>
+                                        <%= u.email %>
+                                    </td>
+                                    <td><span class="badge bg-secondary">
+                                            <%= u.role %>
+                                        </span></td>
+
+                                    <td class="text-end">
+
+                                        <!-- Botão PROMOVER -->
+                                        <% if (u.role !=='admin' ) { %>
+                                            <form action="/user/promote/<%= u.id %>" method="POST" class="d-inline">
+                                                <button class="btn btn-outline-success btn-sm me-2">
+                                                    <i class="bi bi-arrow-up-circle"></i> Promover
+                                                </button>
+                                            </form>
+                                            <% } else if(u.role==='admin' && u.id !==user.id ) { %>
+                                                <form action="/user/promote/<%= u.id %>" method="POST" class="d-inline">
+                                                    <button class="btn btn-outline-danger btn-sm me-2">
+                                                        <i class="bi bi-arrow-down-circle"></i> Demover
+                                                    </button>
+                                                </form>
+                                                <% } %>
+
+                                                    <!-- Botão EDITAR -->
+                                                    <a href="/admin/edit/<%= u.id %>"
+                                                        class="btn btn-outline-primary btn-sm me-2">
+                                                        <i class="bi bi-pencil-square"></i> Editar
+                                                    </a>
+
+                                                    <!-- Botão DELETAR -->
+                                                    <form action="/admin/delete/<%= u.id %>" method="POST"
+                                                        class="d-inline">
+                                                        <button class="btn btn-outline-danger btn-sm">
+                                                            <i class="bi bi-trash"></i> Remover
+                                                        </button>
+                                                    </form>
+
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <%- include('partials/footer') %>
