@@ -27,10 +27,11 @@ class CartController {
     static async add(req, res) {
         const product_id = req.params.id
         const productId = Number(product_id)
+        const url = req.get('Referrer') || '/product/list-products'
 
         if (!productId || isNaN(productId)) {
             req.flash('error', 'ID do produto inválido');
-            return res.redirect('/shop');
+            return res.redirect(url);
         }
 
         try {
@@ -44,7 +45,7 @@ class CartController {
 
             if (product.stock === 0) {
                 req.flash('error', 'Produto sem estoque');
-                return res.redirect('/product/list-products');
+                return res.redirect(url);
             }
 
             Product.update({ stock: product.stock - 1 }, { where: { id: productId } })
@@ -57,12 +58,12 @@ class CartController {
             }
 
             req.flash('success', 'Produto adicionado ao carrinho')
-            return res.redirect('/product/list-products')
+            return res.redirect(url)
 
         } catch (error) {
             console.error('Erro ao adicionar ao carrinho:', error);
             req.flash('error', 'Erro ao adicionar produto');
-            return res.redirect('/product/list-products');
+            return res.redirect(url);
         }
     }
 
