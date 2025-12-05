@@ -26,51 +26,65 @@
 <body class="bg-body-tertiary">
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="card border-secondary shadow-lg p-4" style="width: 100%; max-width: 420px;">
-
-            <!-- HEADER -->
-            <div class="text-center mb-4">
-                <h2 class="fw-bold text-white" id="form-title">Login</h2>
-                <p class="text-secondary" id="form-subtitle">Entre para acessar o sistema</p>
-            </div>
-
-            <!-- LOGIN FORM -->
-            <form id="login-form" class="fade-area" action="/login" method="post">
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="email@exemplo.com" required>
+            <% if (error && error.length> 0) { %>
+                <div class="alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3 p-3 shadow">
+                    <%= error %>
                 </div>
-                <div class="mb-4">
-                    <label class="form-label">Senha</label>
-                    <input type="password" name="password" class="form-control" placeholder="Sua senha" required>
-                </div>
+                <% } %>
+                    <% if (success && success.length> 0) { %>
+                        <div
+                            class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3 p-3 shadow">
+                            <%= success %>
+                        </div>
+                        <% } %>
+                            <!-- HEADER -->
+                            <div class="text-center mb-4">
+                                <h2 class="fw-bold text-white" id="form-title">Login</h2>
+                                <p class="text-secondary" id="form-subtitle">Entre para acessar o sistema</p>
+                            </div>
 
-                <button class="btn btn-primary w-100 py-2">Entrar</button>
-            </form>
+                            <!-- LOGIN FORM -->
+                            <form id="login-form" class="fade-area" action="/login" method="post">
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="email@exemplo.com" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Senha</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Sua senha"
+                                        required>
+                                </div>
 
-            <!-- REGISTER FORM -->
-            <form id="register-form" class="fade-area hidden" action="/register" method="post">
-                <div class="mb-3">
-                    <label class="form-label">Nome</label>
-                    <input type="text" name="name" class="form-control" placeholder="Seu nome" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="email@exemplo.com" required>
-                </div>
-                <div class="mb-4">
-                    <label class="form-label">Senha</label>
-                    <input type="password" name="password" class="form-control" placeholder="Crie uma senha" required>
-                </div>
+                                <button class="btn btn-primary w-100 py-2">Entrar</button>
+                            </form>
 
-                <button class="btn btn-success w-100 py-2">Criar Conta</button>
-            </form>
+                            <!-- REGISTER FORM -->
+                            <form id="register-form" class="fade-area hidden" action="/register" method="post">
+                                <div class="mb-3">
+                                    <label class="form-label">Nome</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Seu nome" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="email@exemplo.com" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Senha</label>
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="Crie uma senha" required>
+                                </div>
 
-            <!-- TOGGLE LINK -->
-            <div class="text-center mt-3">
-                <a href="#" id="toggle-link" class="text-decoration-none">
-                    Não tem conta? Criar conta
-                </a>
-            </div>
+                                <button class="btn btn-success w-100 py-2">Criar Conta</button>
+                            </form>
+
+                            <!-- TOGGLE LINK -->
+                            <div class="text-center mt-3">
+                                <a href="#" id="toggle-link" class="text-decoration-none">
+                                    Não tem conta? Criar conta
+                                </a>
+                            </div>
 
         </div>
     </div>
