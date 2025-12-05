@@ -8,5 +8,6 @@ router.get('/create-category', requireAdmin, CategoryController.createCategory);
 router.post('/store-category', requireAdmin, CategoryController.storeCategory);
 router.get('/list-categories', CategoryController.listCategories)
 router.get('/list-categories/:id', CategoryController.listCategory)
+router.post('/remove-category/:id', requireAdmin, CategoryController.remove)
 
 module.exports = router;
