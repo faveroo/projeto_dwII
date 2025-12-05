@@ -10,33 +10,27 @@
                             <a href="/product/product-detail/<%= product.id %>" class="text-decoration-none">
                                 <div class="d-flex align-items-start mb-3">
 
-                                    <!-- Ícone do produto -->
                                     <div class="icon-container bg-success bg-opacity-25 text-success rounded-circle d-flex justify-content-center align-items-center flex-shrink-0"
                                         style="width: 45px; height: 45px;">
                                         <i class="bi bi-box-seam fs-4"></i>
                                     </div>
 
-                                    <!-- Conteúdo -->
                                     <div class="flex-grow-1 ms-3 overflow-hidden">
 
-                                        <!-- Nome do produto -->
                                         <h5 class="text-white mb-1 fw-bold text-truncate" title="<%= product.name %>">
                                             <%= product.name %>
                                         </h5>
 
-                                        <!-- Preço -->
                                         <p class="text-info fw-semibold mb-0">
                                             <i class="bi bi-cash me-1"></i>R$ <%= product.price %>
                                         </p>
                                     </div>
                                 </div>
 
-                                <!-- Descrição -->
                                 <p class="text-secondary small mb-3 text-truncate-2" style="min-height: 2.5em;">
                                     <%= product.description %>
                                 </p>
 
-                                <!-- Meta info (Categoria e Estoque) -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <small class="text-secondary">
                                         Estoque: <strong>
@@ -45,15 +39,22 @@
                                     </small>
                                 </div>
 
-                                <!-- Botão Adicionar ao Carrinho -->
-                                <form action="/cart/add/<%= product.id %>" method="POST">
+                            </a>
+                            <% if (product.stock> 0) { %>
+                                <form action="/cart/add/<%= product.id %>">
                                     <button
                                         class="btn btn-success w-100 btn-sm d-flex align-items-center justify-content-center gap-2">
                                         <i class="bi bi-cart-plus"></i>
                                         Adicionar ao carrinho
                                     </button>
                                 </form>
-                            </a>
+                                <% } else { %>
+                                    <button
+                                        class="btn btn-danger w-100 btn-sm d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-cart-plus"></i>
+                                        Fora de estoque
+                                    </button>
+                                    <% } %>
                         </div>
                     </div>
                 </div>
