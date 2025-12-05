@@ -11,12 +11,12 @@ class CategoryController {
         Category.create({ name, description, price, stock, category_id })
             .then(() => {
                 req.flash('success', 'Categoria criada com sucesso')
-                return res.redirect('/shop')
+                return res.redirect('/category/list-categories')
             })
             .catch(error => {
                 console.error(error)
                 req.flash('error', 'Erro ao criar categoria')
-                return res.redirect('/shop')
+                return res.redirect('/category/list-categories')
             })
     }
 
@@ -28,7 +28,7 @@ class CategoryController {
             .catch(error => {
                 console.error(error)
                 req.flash('error', 'Erro ao listar categorias')
-                return res.redirect('/shop')
+                return res.redirect('/category/list-categories')
             })
     }
 
@@ -45,7 +45,21 @@ class CategoryController {
             .catch(error => {
                 console.error(error)
                 req.flash('error', 'Erro ao listar categoria')
-                return res.redirect('/shop')
+                return res.redirect('/category/list-categories')
+            })
+    }
+
+    static async remove(req, res) {
+        const { id } = req.params
+        Category.destroy({ where: { id } })
+            .then(() => {
+                req.flash('success', 'Categoria removida com sucesso')
+                return res.redirect('/category/list-categories')
+            })
+            .catch(error => {
+                console.error(error)
+                req.flash('error', 'Erro ao remover categoria')
+                return res.redirect('/category/list-categories')
             })
     }
 }
