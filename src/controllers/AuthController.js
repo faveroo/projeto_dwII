@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Product } = require('../models')
 
 class AuthController {
     static async loginPage(req, res) {
@@ -45,6 +45,19 @@ class AuthController {
     }
 
     static async logout(req, res) {
+        const cart = req.session.cart || []
+        if (cart.length > 0) {
+            for (const item in cart) {
+                const product = await Product.findByPk(cart[item].id)
+                if (product) {
+                    await Product.update(
+                        { stock: product.stock + cart[item].quantity },
+                        { where: { id: cart[item].id } }
+                    )
+                }
+            }
+        }
+
         req.session.destroy()
         return res.redirect('/')
     }
